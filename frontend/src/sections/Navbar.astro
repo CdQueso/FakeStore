@@ -1,0 +1,17 @@
+---
+import UnderlineLink from "../components/UnderlineLink.astro"
+---
+
+<nav class="flex max-w-full justify-between items-center px-5 py-5 bg-[#0f172a] text-white">
+    <div>
+        <img src="" alt="logo">
+    </div>
+    <div class="flex gap-6">
+        <UnderlineLink ref="#inicio" content="Inicio" />
+        <UnderlineLink ref="#productos" content="Productos" />
+        <UnderlineLink ref="#contactos" content="Contactos" />
+    </div>
+    <div>
+        <box-icon name='cart' color='white'></box-icon>
+    </div>
+</nav>

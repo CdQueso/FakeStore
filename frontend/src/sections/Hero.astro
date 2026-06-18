@@ -1,0 +1,55 @@
+<section class="relative max-w-full min-h-[90vh] flex justify-center items-center">
+    <div class="w-full h-full -z-9999">
+        <div class="slide active  transition-opacity duration-1000 ease-in-out bg-amber-200 absolute inset-0 opacity-0"><img src="" alt="camperita1"></div>
+        <div class="slide  transition-opacity duration-1000 ease-in-out bg-amber-300 absolute inset-0 opacity-0"><img src="" alt="camperita2"></div>
+        <div class="slide bg-amber-400 absolute inset-0 opacity-0"><img src="" alt="camperita3"></div>
+        <div class="slide bg-amber-500 absolute inset-0 opacity-0"><img src="" alt="camperita4"></div>
+    </div>
+    <div class="montañas absolute w-full h-64 z-50 bottom-0 -translate-x-25 transition-transform duration-1000 ease-in-out">
+        <!-- Montañas lejanas (más claras) -->
+        <svg class="absolute bottom-0 w-full" viewBox="0 0 1440 200" preserveAspectRatio="none">
+            <polygon points="-100,200 180,40 360,140 540,40 620,200 900,5 1080,130 1300,70 1440,200 1440,200" fill="#1e3a5f"/>
+        </svg>
+        <!-- Montañas cercanas (más oscuras) -->
+        <svg class="absolute bottom-0 w-full" viewBox="0 0 1440 200" preserveAspectRatio="none">
+            <polygon points="-50,200 180,40 440,160 540,40 780,140 900,5 1120,150 1300,70 1490,200" fill="#0f172a"/>
+        </svg>
+    </div>
+    <div class="letras absolute bottom-10 flex items-center translate-y-40 transition-transform duration-1000 ease-in-out animate-duration-1000">
+        <h1 class="text-7xl pb-30 font-extrabold">
+            La calidad y la confianza hacen al producto.
+        </h1>
+    </div>
+</section>
+
+<style>
+    .active {
+        opacity: 1;
+    }
+</style>
+
+<script>
+    const slides = document.querySelectorAll('.slide')
+    
+    let intervalo = setInterval(siguiente, 3000);
+    let current = 0;
+
+    function siguiente(){
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+    }
+
+
+  window.addEventListener('load', () => {
+    const montañas = document.querySelector('.montañas');
+    const letras = document.querySelector('.letras')
+    
+    letras?.classList.remove('translate-y-40')
+    letras?.classList.add('translate-y-0')
+
+    montañas.classList.remove( '-translate-x-25');
+    montañas.classList.add( 'translate-y-0');
+  });
+
+</script>

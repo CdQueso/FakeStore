@@ -1,0 +1,21 @@
+---
+import Card from "../components/Card.astro";
+
+const { visibilidad, contenido, clase } = Astro.props
+
+---
+
+<div class="grid-products flex flex-col p-10 ">
+    <h1 class="text-7xl text-gray-400 [filter:url(#roto)]">Camperas</h1>
+    <div class="camperas flex max-w-full overflow-auto scrollbar-none border-b border-gray-700/50">
+        <Card clase3={visibilidad} content={contenido} clase={clase} categoria="camperas"/>
+    </div>
+    <h1 class="text-7xl text-gray-400 [filter:url(#roto)]">Pantalones</h1>
+    <div class="pantalones  flex max-w-full overflow-auto scrollbar-none border-b border-gray-700/50">
+        <Card clase3={visibilidad} content={contenido} clase={clase} categoria="pantalones"/>
+    </div>
+    <h1 class="text-7xl text-gray-400 [filter:url(#roto)]">Zapatillas</h1>
+    <div class="zapatillas  flex max-w-full overflow-auto scrollbar-none border-b border-gray-700/50">
+        <Card clase3={visibilidad} content={contenido} clase={clase} categoria="zapatillas"/>
+    </div>
+</div>

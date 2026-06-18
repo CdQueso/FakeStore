@@ -1,0 +1,33 @@
+---
+import UnderlineLink from "../components/UnderlineLink.astro"
+---
+
+<section class="bg-linear-to-t from-[#0f172a] to-gray-700 ">
+    <div class="flex justify-between items-center min-h-120 p-10">
+        <div class="flex flex-col gap-5">
+            <div class="flex items-center">
+                <input required class="px-4 py-1 max-w-100 focus:outline-none focus:ring-1 focus:ring-white border border-gray-700/50" type="text" placeholder="email*">
+                <button class="flex items-center"><box-icon  class="hover:invert" name="right-arrow-alt" color="black" size="md"></box-icon></button>
+            </div>
+            <div class="flex items-center">
+                <input class="px-4 py-1 max-w-60 focus:outline-none focus:ring-1 focus:ring-white border border-gray-700/50" type="text" placeholder="SMS*">
+                <button class="flex items-center"><box-icon class="hover:invert" name="right-arrow-alt" color="black" size="md"></box-icon></button>
+            </div>
+            <div class="flex gap-10">
+                <a href=""><box-icon class="hover:invert" size="md" type="logo" name="whatsapp" color="black"></box-icon></a>
+                <a href=""><box-icon class="hover:invert" size="md" type="logo" name="facebook" color="black"></box-icon></a>
+                <a href=""><box-icon class="hover:invert" size="md" type="logo" name="instagram" color="black"></box-icon></a>
+            </div>
+        </div>
+        <div class="flex flex-col gap-5 items-center justify-center mr-20 ">
+            <UnderlineLink ref="#inicio" content="Inicio"/>
+            <UnderlineLink ref="#productos" content="Productos"/>
+            <UnderlineLink ref="#contactos" content="Contactos"/>
+        </div>
+    </div>
+    <div class="flex justify-center">
+        <div>
+            &copy;Fake store y todos los derechos reservados.
+        </div>
+    </div>
+</section>

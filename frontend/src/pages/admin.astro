@@ -1,0 +1,131 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GridProductos from "../sections/GridProductos.astro";
+---
+
+<Layout>
+    <section>
+        <form class="flex justify-center p-10 m-2 border border-dotted gap-4" id="agregarProducto">
+            <input class="nombre bg-black/20 rounded p-2" type="text" placeholder="Ingrese el nombre">
+            <input class="precio bg-black/20 rounded p-2" type="text" placeholder="Ingresa el precio">
+            <select name="categorias" class="categoria bg-black/20 rounded p-2">
+                <option value="camperas">camperas</option>
+                <option value="pantalones">pantalones</option>
+                <option value="zapatillas">zapatillas</option>
+            </select>
+            <button class="bg-black/20 rounded p-2" id="btnAgregar" type="submit">Agregar producto</button>
+        </form>
+        <GridProductos />
+    </section>
+</Layout>
+
+<script>
+    // @ts-nocheck
+    const form = document.querySelector("#agregarProductos")
+    const agregarProd = document.querySelector("#btnAgregar");
+    const agregarNombre = document.querySelector(".nombre");
+    const agregarPrecio = document.querySelector(".precio");
+    const agregarCategoria = document.querySelector(".categoria");
+
+
+    agregarProd?.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const res = await fetch("http://127.0.0.1:8000/productos/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nombre: agregarNombre.value,
+                precio: Number(agregarPrecio.value),
+                categoria: agregarCategoria.value,
+            }),
+        });
+
+        if (res.ok) {
+            const nuevo = await res.json();
+
+            const claseEliminar = "eliminar";
+            const claseActualizar = "actualizar";
+            const claseForm = "visible flex flex-col";
+
+            const card = document.createElement("div");
+            card.className = "bg-gray-700 min-w-80 m-5 p-5 pt-50 hover:scale-110 transition-transform";
+            
+            card.innerHTML = `
+                <h1 class="titulo-nombre" >${nuevo.nombre}</h1>
+                <h2 class="titulo-precio" >$${nuevo.precio}</h2>
+                <div>
+                    <button data-id="${nuevo.id}" class="${claseEliminar}">Eliminar</button>
+                    <button data-id="${nuevo.id}" class="${claseActualizar}">Actualizar</button>
+                    <form class="${claseForm}" data-id="${nuevo.id}">
+                        <input class="nombre" data-field="nombre" type="text" placeholder="Nuevo nombre" />
+                        <input class="precio" data-field="precio" type="text" placeholder="Nuevo precio" />
+                        <select class="categoria" data-field="categoria" name="categorias">
+                            <option value="camperas">camperas</option>
+                            <option value="pantalones">pantalones</option>
+                            <option value="zapatillas">zapatillas</option>
+                        </select>
+                    </form>
+                </div>
+            `;
+            const cat = agregarCategoria?.value;
+            switch (cat){
+                case "camperas":
+                    document.querySelector(".camperas").appendChild(card)
+                    break;
+                case "pantalones":
+                    document.querySelector(".pantalones").appendChild(card)
+                    break;
+                case "zapatillas":
+                    document.querySelector(".zapatillas").appendChild(card)
+                    break;
+            }
+
+            agregarNombre.value = ""
+            agregarPrecio.value = ""
+        }
+    });
+
+    document.querySelector(".camperas")?.addEventListener('click', async (e)=>{
+        const btn = e.target.closest(".actualizar")
+        if(!btn) return;
+        const card = btn.parentElement.parentElement
+        const nombreInput = card.querySelector(".nombre");
+        const precioInput = card.querySelector(".precio")
+        const id = btn.dataset.id
+        const res = await fetch(`http://127.0.0.1:8000/productos/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre: nombreInput.value,
+                precio: Number(precioInput.value),
+                categoria: agregarCategoria.value,
+            }),
+        });
+        if (res.ok){
+            card.querySelector(".titulo-nombre").textContent = nombreInput.value;
+            card.querySelector(".titulo-precio").textContent = `$${precioInput.value}`;
+        } else {
+            alert("No se pudo actualizar el producto")
+        }
+    })
+
+    document.querySelector(".camperas").addEventListener('click', async (e)=>{
+        const btn = e.target.closest('.eliminar')
+        if (!btn) return;
+        const card = btn.parentElement.parentElement
+        const id = btn.dataset.id
+        const res = await fetch(`http://127.0.0.1:8000/productos/${id}`, {
+            method: "DELETE"
+        });
+
+        if (res.ok){
+            card.remove()
+        } else {
+            alert("No se pudo borrar el producto")
+        }
+    })
+
+</script>

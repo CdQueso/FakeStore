@@ -1,0 +1,31 @@
+---
+const API = "http://127.0.0.1:8000";
+
+const res = await fetch(`${API}/productos/`);
+const productos = await res.json();
+
+const { clase, clase3, content, categoria } = Astro.props
+
+const productosFiltrados = productos.filter(p=>p.categoria == categoria)
+---
+
+{productosFiltrados.map(p=>(
+            <article class="card bg-gray-700 min-w-80 m-5 p-5 pt-50 hover:scale-110">
+                <h1 class="titulo-nombre" >{p.nombre}</h1>
+                <h2 class="titulo-precio" >${p.precio}</h2>
+                <button data-id={p.id} class={clase} >{content}</button>
+                <div class={clase3}>
+                    <button data-id={p.id} class="eliminar" >Eliminar</button>
+                    <button data-id={p.id} class="actualizar" >Actualizar</button>
+                    <form class="flex flex-col">
+                        <input class="nombre" type="text" placeholder="Nuevo nombre">
+                        <input class="precio" type="text" placeholder="Nuevo precio">
+                        <select class="categoria" name="categorias">
+                            <option value="camperas">camperas</option>
+                            <option value="pantalones">pantalones</option>
+                            <option value="zapatillas">zapatillas</option>
+                        </select>
+                    </form>
+                </div>
+            </article>
+        ))}
