@@ -1,25 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
+import os
 
-# Ajustá estos valores a tu SQL Server
-SERVER = "DESKTOP-SQ7ICBB\SQLEXPRESS"
-DATABASE = "FakeStore"
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-CONNECTION_STRING = (
-    f"mssql+pyodbc://{SERVER}/{DATABASE}"
-    f"?driver=ODBC+Driver+17+for+SQL+Server"
-    f"&trusted_connection=yes"  # usa tu usuario de Windows
-)
-
-engine = create_engine(CONNECTION_STRING)
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
-
 
 class Base(DeclarativeBase):
     pass
 
-
-# Dependencia para las rutas
 def get_db():
     db = SessionLocal()
     try:
