@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
 
-DATABASE_URL = os.environ.get("${{ Postgres.DATABASE_URL }}")
+DATABASE_URL = os.environ.get("postgresql://postgres:IxEvQaySsXZevZezpZJtFsddRaAMPaJE@postgres.railway.internal:5432/railway")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
