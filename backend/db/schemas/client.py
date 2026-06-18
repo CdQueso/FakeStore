@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 import os
 
-DATABASE_URL = "postgresql://postgres:IxEvQaySsXZevZezpZJtFsddRaAMPaJE@postgres.railway.internal:5432/railway"
+DATABASE_URL = "postgresql://fakestoredb_user:wGvMbnSFH7WwSNyYuEit4Xu8mWhYtFPa@dpg-d8pm37rtqb8s738ajtq0-a/fakestoredb"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
