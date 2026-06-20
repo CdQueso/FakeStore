@@ -9,4 +9,4 @@ class Usuario(Base):
     nombre = Column(String(100))
     nickname = Column(String(100))
     email = Column(String(50))
-    password = Column(String(50))
+    password = Column(String(100))

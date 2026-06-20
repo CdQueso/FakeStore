@@ -22,6 +22,9 @@ class UsuarioCreate(BaseModel):
 
 
 class UsuarioResponse(BaseModel):
+    nombre: str
+    nickname: str
+    email: str
     id: int
 
     class Config:

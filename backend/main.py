@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import productos, users
+from routers import productos, users, auth_users
 from db.schemas.client import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,6 +16,7 @@ app.add_middleware(
 
 app.include_router(productos.router)
 app.include_router(users.router)
+app.include_router(auth_users.router)
 
 
 @app.get("/")

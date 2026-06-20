@@ -2,14 +2,14 @@
 import GridProductos from "./GridProductos.astro";
 ---
 
-<section class="max-w-full min-h-screen bg-linear-to-b from-[#0f172a] to-gray-700 text-xl">
+<section class="min-w-full min-h-screen bg-linear-to-b from-[#0f172a] to-gray-700 text-xl">
     <div class="barra-busqueda flex items-center p-5 gap-5 border-b border-gray-700/50">
         <input class="text-gray-400 px-5 py-2 focus:ring-2 focus:ring-white rounded focus:outline-none border border-gray-700" type="text" placeholder="¿Que producto buscas?">
         <button class="hover:border hover:border-gray-700 hover:rounded h-full px-2 py-2 flex items-center justify-center">
             <box-icon name="search" color="#111" size="40px"></box-icon>
         </button>
     </div>
-   <GridProductos clase="agregar" visibilidad="invisible absolute" contenido="Agregar" />
+   <GridProductos clase="agregar bg-white px-5 py-2 rounded w-full" visibilidad="invisible absolute" contenido="Agregar" />
 </section>
 
 <svg class="w-0 h-0 absolute">
