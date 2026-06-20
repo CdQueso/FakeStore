@@ -20,7 +20,8 @@ import GridProductos from "../sections/GridProductos.astro";
 </Layout>
 
 <script>
-    // @ts-nocheck
+    const API = "http://localhost:8000";
+// @ts-nocheck
     const form = document.querySelector("#agregarProductos")
     const agregarProd = document.querySelector("#btnAgregar");
     const agregarNombre = document.querySelector(".nombre");
@@ -31,7 +32,7 @@ import GridProductos from "../sections/GridProductos.astro";
     agregarProd?.addEventListener("click", async (e) => {
         e.preventDefault();
 
-        const res = await fetch("http://127.0.0.1:8000/productos/", {
+        const res = await fetch(`${API}/productos/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -95,7 +96,7 @@ import GridProductos from "../sections/GridProductos.astro";
         const nombreInput = card.querySelector(".nombre");
         const precioInput = card.querySelector(".precio")
         const id = btn.dataset.id
-        const res = await fetch(`http://127.0.0.1:8000/productos/${id}`, {
+        const res = await fetch(`${API}/productos/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -117,7 +118,7 @@ import GridProductos from "../sections/GridProductos.astro";
         if (!btn) return;
         const card = btn.parentElement.parentElement
         const id = btn.dataset.id
-        const res = await fetch(`http://127.0.0.1:8000/productos/${id}`, {
+        const res = await fetch(`${API}/productos/${id}`, {
             method: "DELETE"
         });
 

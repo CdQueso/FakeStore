@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+<Layout>
+    <section class="flex justify-center items-center w-full h-full">
+        <form action="" class="flex flex-col gap-4">
+            <input id="nombre" class="border" type="text" placeholder="Nombre">
+            <input id="nick" class="border" type="text" placeholder="Nickname">
+            <input id="email" class="border" type="email" placeholder="Email">
+            <input id="pass" class="border" type="password" placeholder="Contraseña">
+            <button class="btnRegister" type="submit">Registrar</button>
+        </form>
+    </section>
+</Layout>
+
+<script>
+    const API = "http://localhost:8000";
+
+    const btnRegister = document.querySelector(".btnRegister")
+    const nombreInput = document.querySelector("#nombre")
+    const nickInput = document.querySelector("#nick")
+    const emailInput = document.querySelector("#email")
+    const passInput = document.querySelector("#pass")
+
+    btnRegister?.addEventListener('click', async(e)=>{
+        e.preventDefault()
+
+        const res = await fetch(`${API}/users`,{ 
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                nombre: nombreInput.value,
+                nickname: nickInput.value,
+                email: emailInput.value,
+                password: passInput.value
+            })
+        })
+
+        if (res.ok) {
+            const data = await res.json();
+            console.log("Usuario creado con éxito:", data);
+            alert("¡Usuario registrado!");
+        } else {
+            console.error("Error en el servidor:", res.statusText);
+        }
+        
+        nombreInput.value = "";
+        nickInput.value = "";
+        emailInput.value = "";
+        passInput.value = "";
+    })
+</script>
