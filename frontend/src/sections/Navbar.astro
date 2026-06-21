@@ -3,13 +3,13 @@ import UnderlineLink from "../components/UnderlineLink.astro"
 ---
 
 <nav class="flex min-w-full justify-between items-center bg-[#0f172a] text-white">
-    <div>
+    <div class="flex items-center gap-10">
         <img src="" alt="logo">
-    </div>
-    <div class="flex gap-6 pl-50">
-        <UnderlineLink ref="#inicio" content="Inicio" />
-        <UnderlineLink ref="#productos" content="Productos" />
-        <UnderlineLink ref="#contactos" content="Contactos" />
+        <div class="flex gap-6">
+            <UnderlineLink ref="#inicio" content="Inicio" />
+            <UnderlineLink ref="#productos" content="Productos" />
+            <UnderlineLink ref="#contactos" content="Contactos" />
+        </div>
     </div>
     <div class="flex">
         <div class="register bg-orange-500 h-full px-8 py-4 hover:opacity-80 hover:cursor-pointer"><h1>registrate</h1></div>
@@ -22,6 +22,9 @@ import UnderlineLink from "../components/UnderlineLink.astro"
     const login = document.querySelector(".login")
 
     register?.addEventListener('click', function(){
+        window.location.href = "/login"
+    })
+    login?.addEventListener('click', function(){
         window.location.href = "/login"
     })
 </script>

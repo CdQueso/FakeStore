@@ -4,7 +4,7 @@ import GridProductos from "./GridProductos.astro";
 
 <section class="min-w-full min-h-screen bg-linear-to-b from-[#0f172a] to-gray-700 text-xl">
     <div class="barra-busqueda flex items-center p-5 gap-5 border-b border-gray-700/50">
-        <input class="text-gray-400 px-5 py-2 focus:ring-2 focus:ring-white rounded focus:outline-none border border-gray-700" type="text" placeholder="¿Que producto buscas?">
+        <input class="inputBusqueda text-gray-400 px-5 py-2 focus:ring-2 focus:ring-white rounded focus:outline-none border border-gray-700" type="text" placeholder="¿Que producto buscas?">
         <button class="hover:border hover:border-gray-700 hover:rounded h-full px-2 py-2 flex items-center justify-center">
             <box-icon name="search" color="#111" size="40px"></box-icon>
         </button>
@@ -21,5 +21,40 @@ import GridProductos from "./GridProductos.astro";
 
 
 <script>
-    export const gridProductos = document.querySelector(".grid-productos") 
+    const API = "http://localhost:8000";
+    const barraBusquedaInput = document.querySelector(".inputBusqueda")
+    const cards = document.querySelectorAll(".card")
+    const res = await fetch(`${API}/productos`);
+    const productos = await res.json()
+
+    let categoriaSeleccionada = "todos"
+
+    function busquedaPorTextoYCategoria(){
+        const textoFiltrado = barraBusquedaInput
+        ? barraBusquedaInput.value.toLowerCase().trim()
+        : "";
+
+        const productosQueCoinciden = productos.filter((producto)=>{
+            // const coincidenciaCategoria = categoriaSeleccionada == "todos" || producto.categoria == categoriaSeleccionada;
+            const coincidenciaTexto = producto.nombre.toLowerCase().includes(textoFiltrado)
+            return coincidenciaTexto;
+        })
+
+        const existeEnStock = productos.length > 0
+        const sinCoincidenciaDeBusqueda = existeEnStock && productosQueCoinciden.length == 0;
+
+        cards.forEach(c=>{
+            const id = c.dataset.id
+            const coincide = productosQueCoinciden.some(p=>p.id == id)
+
+            if(!coincide){
+                c.classList.add('invisible')
+                c.classList.add('absolute')
+            }else{
+                c.classList.remove('invisible')
+                c.classList.remove('absolute')
+            }
+        })
+    }   
+    barraBusquedaInput?.addEventListener('input', busquedaPorTextoYCategoria)
 </script>

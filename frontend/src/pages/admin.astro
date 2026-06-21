@@ -129,4 +129,35 @@ import GridProductos from "../sections/GridProductos.astro";
         }
     })
 
+    document.querySelector(".pantalones").addEventListener('click', async (e)=>{
+        const btn = e.target.closest('.eliminar')
+        if (!btn) return;
+        const card = btn.parentElement.parentElement
+        const id = btn.dataset.id
+        const res = await fetch(`${API}/productos/${id}`, {
+            method: "DELETE"
+        });
+
+        if (res.ok){
+            card.remove()
+        } else {
+            alert("No se pudo borrar el producto")
+        }
+    })
+
+    document.querySelector(".zapatillas").addEventListener('click', async (e)=>{
+        const btn = e.target.closest('.eliminar')
+        if (!btn) return;
+        const card = btn.parentElement.parentElement
+        const id = btn.dataset.id
+        const res = await fetch(`${API}/productos/${id}`, {
+            method: "DELETE"
+        });
+
+        if (res.ok){
+            card.remove()
+        } else {
+            alert("No se pudo borrar el producto")
+        }
+    })
 </script>
